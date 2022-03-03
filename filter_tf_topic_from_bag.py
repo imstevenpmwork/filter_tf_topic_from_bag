@@ -38,8 +38,7 @@ def filter(bag_path_input,bag_path_output):
         (topic, data, t) = reader.read_next()
         msg_type = get_message(type_map[topic])
         msg = deserialize_message(data, msg_type)
-	
-	# Removes the map->cartomap and cartomap->odom tf from the tf tree in the tf bag topic
+
         if topic=="/tf":    
             if not ((msg.transforms[0].header.frame_id == "map" and msg.transforms[0].child_frame_id == "odom")):
                 writer.write(topic,serialize_message(msg),t)
